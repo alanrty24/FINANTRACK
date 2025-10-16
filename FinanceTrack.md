@@ -111,7 +111,7 @@ FINANTRACK
 |-vite.config.js
 ```
 ## Utilidades
-
+```js
 export default function useExpenseStore() {
   create(
     persist(
@@ -148,3 +148,4 @@ export default function useExpenseStore() {
     )
   );
 }
+```

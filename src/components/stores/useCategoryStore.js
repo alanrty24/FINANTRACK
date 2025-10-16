@@ -1,0 +1,94 @@
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+
+const useCategoryStore =  create(
+    persist(
+      (set) => ({
+        categories: { income: [], expense: [] },
+        // Actions
+        addCategoryIncome: (category) => 
+          set((state) => ({
+            categories: {
+              income: [
+                 {
+                  ...category,
+                  createAt: new Date().toISOString(),
+                },
+                ...state.categories.income,
+              ],
+              expense: state.categories.expense,
+            },
+          }))
+        ,
+        addCategoryExpense: (category) =>             
+          set((state) => ({
+            categories: {
+              income: state.categories.income,
+              expense: [
+                {
+                  ...category,
+                  createAt: new Date().toISOString(),
+                },
+                ...state.categories.expense,
+              ],
+            },
+          }))
+        ,
+        updateCategoryIncome: (category, id) => {
+          set((state) => ({
+            category: {
+              income: state.category.income.map((cat) => {
+                if (cat.id === id) {
+                  return {
+                    ...category,
+                    ...cat.id,
+                    createAt: new Date().toISOString(),
+                  };
+                } else {
+                  return {
+                    ...cat,
+                  };
+                }
+              }),
+            },
+          }));
+        },
+        updateCategoryExpense: (category, id) => {
+          set((state) => ({
+            category: {
+              expense: state.category.expense.map((cat) => {
+                if (cat.id === id) {
+                  return {
+                    ...category,
+                    ...cat.id,
+                    createAt: new Date().toISOString(),
+                  };
+                } else {
+                  return {
+                    ...cat,
+                  };
+                }
+              }),
+            },
+          }));
+        },
+        deleteCategoryIncome: (id) => {
+          set((state) => ({
+            categories: {
+              income: state.categories.income.filter((cat) => cat.id !== id),
+            },
+          }));
+        },
+        deleteCategoryExpense: (id) => {
+          set((state) => ({
+            categories: {
+              expense: state.categories.expense.filter((cat) => cat.id !== id),
+            },
+          }));
+        },
+      }),
+      { name: "category", version: 2 }
+    )
+  );
+
+export default useCategoryStore;

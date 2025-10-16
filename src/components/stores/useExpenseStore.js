@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-export default function useExpenseStore() {
+const useExpenseStore =
   create(
     persist(
       (set) => ({
@@ -36,4 +36,5 @@ export default function useExpenseStore() {
       { name: "transactions", version: 1 }
     )
   );
-}
+
+export default  useExpenseStore; 
