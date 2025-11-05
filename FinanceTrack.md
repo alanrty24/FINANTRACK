@@ -149,3 +149,29 @@ export default function useExpenseStore() {
   );
 }
 ```
+
+## Fase 2- Desarollo del layout 
+
+### Objetivos
+
+***1)*** Crear la interfaz grafica 
+***2)*** Crear las rutas de las paginas (Dashboard, Transacciones, Categorias, Analisis, Configuración). 
+***3)*** Desarrollo de un entorno Responsivo y con un buen UI/UX
+
+### Colores de la interfaz gráfica
+```css
+:root {
+    /* Variables */
+    --federal-blue: #03045eff;
+    --marian-blue: #023e8aff;
+    --honolulu-blue: #0077b6ff;
+    --blue-green: #0096c7ff;
+    --pacific-cyan: #00b4d8ff;
+    --vivid-sky-blue: #48cae4ff;
+    --non-photo-blue: #90e0efff;
+    --non-photo-blue-2: #ade8f4ff;
+    --light-cyan: #e2f9fe;
+}
+```
+
+### Rutas del proyecto
