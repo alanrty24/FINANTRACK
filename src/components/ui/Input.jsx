@@ -1,10 +1,10 @@
 import React from 'react'
 import { cn } from '../lib/utils'
 
-const Input = ({children, type = "text" , required, className , placesholder = "", ...props}) => {
+const Input = ({label, type = "text" , required, className, classNameDiv , placesholder = "", ...props}) => {
   return (
-    <div className='flex flex-col gap-2 mb-4'>
-        <label htmlFor="">{children}</label>
+    <div className= {cn(classNameDiv + " ")}>
+        {label && (<label htmlFor="" className='text-base md:text-lg'>{label}</label>)}
         <input 
         className={cn(className + ` p-4 border-2 rounded-2xl border-[#03045e]`)}
         type= {type}

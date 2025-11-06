@@ -1,0 +1,16 @@
+.check[type = "checkbox"] {
+  --size: 30px;
+  --color: var(--federal-blue);
+
+  appearance: none;
+  width: var(--size);
+  height: var(--size);
+  border: 2px solid var(--color);
+  border-radius: 6px;
+  padding: .6rem;
+  box-shadow: 0 0 0 6px field inset;
+
+  &:checked {
+    background: var(--color);
+  }
+}
