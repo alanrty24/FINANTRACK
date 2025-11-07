@@ -12,7 +12,9 @@ const useCategoryStore =  create(
               income: [
                  {
                   ...category,
+                  type: "income",
                   createAt: new Date().toISOString(),
+                  id: crypto.randomUUID().slice(0,5)
                 },
                 ...state.categories.income,
               ],
@@ -27,7 +29,9 @@ const useCategoryStore =  create(
               expense: [
                 {
                   ...category,
+                  type: "expense",
                   createAt: new Date().toISOString(),
+                  id: crypto.randomUUID().slice(0,5)
                 },
                 ...state.categories.expense,
               ],

@@ -19,18 +19,20 @@ const IconsSelect = ({onChange}) => {
 
     setIcon({
       id: newCat.id,
-      type: "expense",
+      type: newCat.type,
       icon: newCat.icon,
     });
 
     setIsOpen(false); 
 
-    onChange(newCat.icon);
+    onChange(
+      newCat.icon
+    );
   }
 
   return (
     <Card className={"flex flex-col text-2xl"}>
-      <div className="flex flex-col items-center justify-center p-4 shadow-lg shadow-slate-500 border-0 space-x-4 mb-4 w-full font-bold rounded-2xl text-3xl">
+      <div className="flex flex-col items-center justify-center p-4 shadow-lg shadow-slate-500 border-0 space-x-4 mb-4 w-full font-bold rounded-2xl text-2xl">
         <h3 className="font-mono">Select Icon</h3>
         <div className="inline-flex space-x-4 p-4">
         <Button
@@ -42,7 +44,7 @@ const IconsSelect = ({onChange}) => {
         >
           {icon.icon === '' ? "New" : <FiEdit />}
         </Button>
-        <div className="flex justify-center items-center">
+        <div className={`justify-center items-center ${icon.id === 0 ? "hidden" : "flex"}`}>
           <div className="p-2 rounded-xl bg-(--vivid-sky-blue) border-2 border-(--federal-blue)">
             {icon.icon}
           </div>
