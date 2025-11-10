@@ -4,14 +4,35 @@ import Button from "../ui/Button";
 import { useState } from "react";
 import Card from "../ui/Card";
 import { BiEdit } from "react-icons/bi";
-import RecentCategoriesExpensive from "../categories/RecentCategoriesExpensive";
+import RecentCategories from "../categories/RecentCategories";
+import { Outlet } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { formatDate } from "../lib/utils";
+
 
 const Categories = () => {
   const [openNew, setOpenNew] = useState(false);
-  const handleClose = () => setOpenNew(false)
+  const [openPage, setOpenPage] = useState(false);
+  const Navigate = useNavigate(); 
+
+  const setActivePage = () => {
+    setOpenPage(false)
+    Navigate("/categories")
+  }
+  
+  const setDesactivePage = () => {
+    setOpenPage(true)
+  }
+  
+  const contextValue = {
+    activePage: setActivePage,
+    desactivePage: setDesactivePage
+  }
+
+  const handleClose = () => setOpenNew(false);
   return (
-    <section className="flex flex-col gap-4">
+    <>
+    <section className={`flex-col gap-4 relative ${openPage ? "hidden" : "flex"}`}>
       <Button
         onClick={() => {
           setOpenNew(true);
@@ -21,19 +42,18 @@ const Categories = () => {
       >
         + Nueva Categoria
       </Button>
-      {openNew && <CategoriesForm onClose = {handleClose}/>}
+      {openNew && <CategoriesForm onClose={handleClose} />}
 
       <Card
-        className={`shadow-slate-400 w-full h-auto border-2 p-4 rounded-xl`}
+        className={`shadow-slate-400 bg-(--federal-blue) w-full h-auto border-2 p-4 rounded-xl ${
+          openNew ? "hidden" : "block"
+        }`}
       >
-        <RecentCategoriesExpensive />
-      </Card>
-      <Card
-        className={`shadow-slate-400 w-full h-auto border-2 p-4 rounded-xl`}
-      >
-       
+        <RecentCategories onDesable={setDesactivePage} />
       </Card>
     </section>
+    <Outlet context = {contextValue}/>
+    </>
   );
 };
 

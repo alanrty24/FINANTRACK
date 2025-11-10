@@ -113,7 +113,7 @@ const Layout = ({ children }) => {
       <div className="lg:pl-64">
         {/* Header Mobile */}
         <div
-          className={`fixed inset-x-0 h-16 shadow-2xl flex items-center justify-between p-4 text-2xl bg-(--yellow-green) ${
+          className={`fixed inset-x-0 h-16 shadow-2xl z-10 flex items-center justify-between p-4 text-2xl bg-(--light-cyan) ${
             isOpen ? "hidden" : "flex"
           } lg:hidden`}
         >

@@ -15,3 +15,29 @@
     background: var(--color);
   }
 }
+
+select {
+  /* 1. Eliminar estilos nativos (crucial) */
+  -webkit-appearance: none; /* Para Chrome y Safari */
+  -moz-appearance: none;    /* Para Firefox */
+  appearance: none;
+  
+  /* 2. Propiedades básicas */
+  /* border: 2px solid var(--federal-blue); */
+  /* padding: .8rem; */
+  border-radius: 8px;
+  font-size: 16px;
+  width: 100%;
+  cursor: pointer;
+}
+
+option{
+  /* 1. Eliminar estilos nativos (crucial) */
+  -webkit-appearance: none; /* Para Chrome y Safari */
+  -moz-appearance: none;    /* Para Firefox */
+  appearance: none;
+
+  /* font-weight: bold; */
+  background-color: var(--light-cyan);
+  border: none;
+}

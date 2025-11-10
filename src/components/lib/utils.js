@@ -12,9 +12,9 @@ export const formatAmount = (amount) => {
 export const formatDate = (date) => {
     return new Intl.DateTimeFormat("es-VE",{
         day:"2-digit",
-        month:"short",
+        month:"2-digit",
         year:"numeric"
-    }).format(new Date(date).toISOString())
+    }).format(new Date(date))
 }
 
 export const csvFormat = (transactions) => {
