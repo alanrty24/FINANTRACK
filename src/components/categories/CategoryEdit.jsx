@@ -44,6 +44,7 @@ const CategoryEdit = () => {
   const {
     handleSubmit,
     register,
+    setValue,
     reset,
     formState: { errors },
   } = useForm();
@@ -71,11 +72,11 @@ const CategoryEdit = () => {
   return (
     <Card className={"max-w-7xl relative md:px-8 md:py-4"}>
       <div className="shadow-slate-300 bg-(--federal-blue) shadow-xl w-full h-10 mb-4 flex justify-between px-4 items-center text-3xl gap-4 relative inset-x-0 top-0 border-1 rounded-xl">
-        <h3 className="font-mono text-center w-full text-white">
+        <h3 className="font-mono text-center w-full text-white text-2xl md:text-3xl">
           Actualizar Categoria
         </h3>
         <button
-          className="flex justify-center items-center"
+          className="flex justify-center items-center cursor-pointer"
           onClick={() => {
             activePage();
           }}
@@ -94,6 +95,9 @@ const CategoryEdit = () => {
             id: data.id,
             name: data.name,
             icon: data.icon,
+          }}
+          onName = {(nameInput) => {
+            setValue("name",nameInput)
           }}
         />
         <Input

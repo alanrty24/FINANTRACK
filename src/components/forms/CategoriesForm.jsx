@@ -8,18 +8,31 @@ import Input from "../ui/Input";
 import "../styles/categoriesform.css";
 import useCategoryStore from "../stores/useCategoryStore";
 import { HiArrowLeft } from "react-icons/hi";
+import { useEffect } from "react";
 
 const CategoriesForm = ({ onClose }) => {
   const addCategory = useCategoryStore((state) => state.addCategory);
+  const [nameIcon,setNameIcon] = useState("");
   const [data, setData] = useState({
     icon: "",
     name: "",
     type: "income",
     status: true,
   });
+
+  useEffect(() => {
+    if(data.name && data.name !== nameIcon){
+      setData({
+        ...data,
+        name: nameIcon,
+      })
+    }
+  } , [data.name]);
+
   const {
     handleSubmit,
     register,
+    setValue,
     reset,
     formState: { errors },
   } = useForm();
@@ -42,6 +55,8 @@ const CategoriesForm = ({ onClose }) => {
       icon: icon,
       name: name,
     });
+
+    setNameIcon(name)
   };
 
   return (
@@ -51,7 +66,7 @@ const CategoriesForm = ({ onClose }) => {
           New Categorie
         </h3>
         <button
-          className="flex justify-center items-center"
+          className="flex justify-center items-center cursor-pointer"
           onClick={() => {
             onClose();
           }}
@@ -70,7 +85,11 @@ const CategoriesForm = ({ onClose }) => {
             id: "",
             name: "",
             icon: "",
-          }}/>
+        }}
+        onName = {(nameInput) => {
+          setValue("name",nameInput)
+        }}
+        />
         <Input
           {...register("name", { required: "Error, nombre requerido" })}
           type="text"

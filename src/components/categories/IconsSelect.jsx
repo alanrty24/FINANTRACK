@@ -7,13 +7,14 @@ import { useState } from "react";
 import { FiEdit } from "react-icons/fi";
 import { useEffect } from "react";
 
-const IconsSelect = ({ onChange, iconValue }) => {
+const IconsSelect = ({ onChange, iconValue, onName }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [icon, setIcon] = useState(iconValue);
 
   useEffect(()=> {
     if (iconValue && icon.icon !== iconValue.icon && iconValue.icon !== "") {
       setIcon(iconValue);
+      onName(iconValue.name)
     }
   } , [icon , iconValue]); 
 
@@ -25,7 +26,7 @@ const IconsSelect = ({ onChange, iconValue }) => {
     });
 
     setIsOpen(false);
-
+    onName(newCat.name)
     onChange(newCat.icon, newCat.name);
   };
 
@@ -37,7 +38,7 @@ const IconsSelect = ({ onChange, iconValue }) => {
       />
       
       <div className="flex flex-col items-center justify-center p-4 shadow-lg shadow-slate-500 border-0 space-x-4 mb-2 w-full font-bold rounded-2xl text-2xl">
-        <h3 className="font-mono">Select Icon</h3>
+        <h3 className="font-mono text-xl md:text-2xl lg:text-3xl">Select Icon</h3>
         <div className="inline-flex space-x-4 p-4">
           <Button
             className={`text-xl border-2 ${isOpen ? "hidden" : "block"} `}

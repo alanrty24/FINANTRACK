@@ -36,7 +36,7 @@ const useCategoryStore = create(
         }));
       },
     }),
-    { name: "category", version: 2 }
+    { name: "category", version: 1 }
   )
 );
 

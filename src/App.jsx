@@ -7,6 +7,7 @@ import Categories from "./components/pages/Categories";
 import CategoriesForm from "./components/forms/CategoriesForm";
 import CategoryList from "./components/categories/CategoryList";
 import CategoryEdit from "./components/categories/CategoryEdit";
+import CategoryAll from "./components/categories/CategoryAll";
 
 const Transaction = () => {
   return <div>Transaction</div>;
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/categories" element={<Categories />}>
           <Route path=":id" element={<CategoryList />}/>
           <Route path=":id/edit" element={<CategoryEdit />}/>
+          <Route path="all" element={<CategoryAll />}/>
         </Route>
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/configuration" element={<Configuration />} />
