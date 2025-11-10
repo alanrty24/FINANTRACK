@@ -38,7 +38,8 @@ const Categories = () => {
           setOpenNew(true);
         }}
         variant={"new"}
-        className={`${openNew ? "hidden" : "block"} border-2 mb-4 `}
+        size = {""}
+        className={`${openNew ? "hidden" : "block"} border-2 mb-4 text-base md:text-lg lg:w-1/4 `}
       >
         + Nueva Categoria
       </Button>

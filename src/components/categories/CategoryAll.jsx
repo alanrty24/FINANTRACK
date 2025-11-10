@@ -35,7 +35,7 @@ const CategoryAll = () => {
   return (
     <Card className={`rounded-2xl flex flex-col gap-4`}>
       <Card
-        className={"p-4 bg-(--honolulu-blue) rounded-2xl flex justify-between items-center"}
+        className={"p-4 bg-(--federal-blue) rounded-2xl flex justify-between items-center"}
       >
         <ul className="flex gap-4">
           {links.map((link) => {
@@ -44,8 +44,8 @@ const CategoryAll = () => {
             return (
               <li
                 key={link.id}
-                className={`px-4 py-2 rounded-2xl text-white font-bold cursor-pointer transition-all duration-500 border-2 border-white ${
-                  isSelect ? "bg-(--federal-blue)" : "hover:bg-(--non-photo-blue-2) hover:text-(--federal-blue)"
+                className={`px-4 py-2 rounded-2xl font-bold cursor-pointer transition-all duration-500 border-2 border-white ${
+                  isSelect ? "text-(--federal-blue) bg-(--light-cyan) " : "text-white hover:bg-(--light-cyan) hover:text-(--federal-blue)"
                 }`}
                 onClick={() => {
                   setIsType(link.id);
