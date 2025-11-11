@@ -32,14 +32,14 @@ const Categories = () => {
   const handleClose = () => setOpenNew(false);
   return (
     <>
-    <section className={`flex-col gap-4 relative ${openPage ? "hidden" : "flex"}`}>
+    <section className={`flex-col gap-4 relative md:my-4 lg:my-0 ${openPage ? "hidden" : "flex"}`}>
       <Button
         onClick={() => {
           setOpenNew(true);
         }}
         variant={"new"}
         size = {""}
-        className={`${openNew ? "hidden" : "block"} border-2 mb-4 text-base md:text-lg lg:w-1/4 `}
+        className={`${openNew ? "hidden" : "block"} border-2 mb-4 text-base md:w-1/4 `}
       >
         + Nueva Categoria
       </Button>

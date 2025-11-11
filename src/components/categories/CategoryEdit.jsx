@@ -72,7 +72,7 @@ const CategoryEdit = () => {
   return (
     <Card className={"max-w-7xl relative md:px-8 md:py-4"}>
       <div className="shadow-slate-300 bg-(--federal-blue) shadow-xl w-full h-10 mb-4 flex justify-between px-4 items-center text-3xl gap-4 relative inset-x-0 top-0 border-1 rounded-xl">
-        <h3 className="font-mono text-center w-full text-white text-2xl md:text-3xl">
+        <h3 className="font-mono text-center w-full text-white text-2xl">
           Actualizar Categoria
         </h3>
         <button
@@ -96,8 +96,8 @@ const CategoryEdit = () => {
             name: data.name,
             icon: data.icon,
           }}
-          onName = {(nameInput) => {
-            setValue("name",nameInput)
+          onName={(nameInput) => {
+            setValue("name", nameInput);
           }}
         />
         <Input
@@ -150,9 +150,14 @@ const CategoryEdit = () => {
             console.log(e.target.checked);
           }}
         ></Input>
-        <Button className={"w-full p-4 text-xl font-bold my-4 cursor-pointer "} type="submit">
-          Actualizar
-        </Button>
+        <div className="flex justify-center">
+          <Button
+            className={"w-full text-xl font-bold my-4 cursor-pointer md:w-1/4 "}
+            type="submit"
+          >
+            Actualizar
+          </Button>
+        </div>
       </form>
     </Card>
   );

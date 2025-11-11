@@ -13,8 +13,8 @@ const RecentCategoriesIncome = ({onDesable}) => {
   const Navigate = useNavigate();
 
   return (
-    <Card className={`flex flex-col gap-4 text-lg`}>
-      <h3 className="text-xl text-center font-bold font-mono text-white">
+    <Card className={`h-auto flex flex-col gap-4 text-lg lg:grid lg:grid-cols-2`}>
+      <h3 className="text-xl col-span-full text-center font-bold font-mono text-white">
         Categorias Recientes
       </h3>
       {categoriesRecent.length === 0 ? (
@@ -24,7 +24,7 @@ const RecentCategoriesIncome = ({onDesable}) => {
           return (
             <div
               key={i}
-              className={`p-4 shadow-white text-(--federal-blue) border-2 border-white rounded-2xl flex items-center space-x-8 cursor-pointer ${
+              className={`px-4 py-2 shadow-white text-(--federal-blue) border-2 border-white rounded-2xl flex items-center space-x-8 cursor-pointer ${
                 cat.type === "income" ? "bg-green-300" : "bg-red-300"
               }`}
             >
@@ -66,9 +66,9 @@ const RecentCategoriesIncome = ({onDesable}) => {
           );
         })
       )}
-      <div className="w-full flex justify-center">
+      <div className="w-full flex justify-center lg:col-span-full">
         <Link 
-        className={"rounded-2xl bg-(--light-cyan) text-(--federal-blue) font-bold border-2 border-white cursor-pointer transition-all duration-500 hover:text-(--light-cyan) hover:-translate-y-1 hover:bg-(--blue-green) hover:border-2 hover:cursor-pointe px-4 py-2 text-base md:text-lg"}
+        className={"rounded-2xl bg-(--light-cyan) text-(--federal-blue) font-bold border-2 border-white cursor-pointer transition-all duration-500 hover:text-(--light-cyan) hover:-translate-y-1 hover:bg-(--blue-green) hover:border-2 hover:cursor-pointe px-4 py-2 lg:px-5 lg:py-1.5 text-base"}
         // onClick={onDesable}
         to={'/categories/all'}
         >Ver Todas</Link>

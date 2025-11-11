@@ -1,17 +1,13 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import PruebaCode from "./components/lib/pruebaCode";
 import Layout from "./components/layout/Layout";
 import Dashboard from "./components/pages/Dashboard";
 import Categories from "./components/pages/Categories";
-import CategoriesForm from "./components/forms/CategoriesForm";
 import CategoryList from "./components/categories/CategoryList";
 import CategoryEdit from "./components/categories/CategoryEdit";
 import CategoryAll from "./components/categories/CategoryAll";
+import Transaction from "./components/pages/Transaction";
 
-const Transaction = () => {
-  return <div>Transaction</div>;
-};
 
 const Analytics = () => {
   return <div>Analytics</div>;
@@ -26,7 +22,9 @@ const App = () => {
     <Layout>
       <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/transaction" element={<Transaction />} />
+        <Route path="/transaction" element={<Transaction />}>
+          
+        </Route>
         <Route path="/categories" element={<Categories />}>
           <Route path=":id" element={<CategoryList />}/>
           <Route path=":id/edit" element={<CategoryEdit />}/>

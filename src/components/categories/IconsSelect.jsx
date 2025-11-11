@@ -31,17 +31,17 @@ const IconsSelect = ({ onChange, iconValue, onName }) => {
   };
 
   return (
-    <Card className={"flex flex-col text-2xl"}>
+    <Card className={"flex flex-col text-2xl "}>
       <div 
       className={`fixed inset-0 bg-slate-200 opacity-60 ${isOpen ? "block" : "hidden"}`} 
       onClick={() => setIsOpen(false)}
       />
       
-      <div className="flex flex-col items-center justify-center p-4 shadow-lg shadow-slate-500 border-0 space-x-4 mb-2 w-full font-bold rounded-2xl text-2xl">
-        <h3 className="font-mono text-xl md:text-2xl lg:text-3xl">Select Icon</h3>
+      <div className="flex flex-col items-center justify-center p-4  shadow-lg shadow-slate-500 border-0 space-x-4 mb-2 w-full font-bold rounded-2xl text-2xl lg:px-4 lg:py-2">
+        <h3 className="font-mono text-xl md:text-2xl">Seleccione un Icono</h3>
         <div className="inline-flex space-x-4 p-4">
           <Button
-            className={`text-xl border-2 ${isOpen ? "hidden" : "block"} `}
+            className={`text-base border-2 ${isOpen ? "hidden" : "block"} `}
             variant={`${icon.icon === "" ? "new" : "change"}`}
             onClick={() => {
               setIsOpen(true);

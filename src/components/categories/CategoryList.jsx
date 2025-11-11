@@ -36,7 +36,7 @@ const CategoryList = () => {
   return (
     <Card className={"flex flex-col gap-4"}>
       <div className="shadow-slate-300 bg-(--federal-blue) shadow-xl w-full h-10 mb-4 flex justify-between px-4 items-center text-3xl gap-4 relative inset-x-0 top-0 border-1 rounded-xl">
-        <h3 className="font-mono text-center w-full text-white">Categoria</h3>
+        <h3 className="font-mono text-center w-full text-2xl text-white">Categoria</h3>
         <button
           className="flex justify-center items-center cursor-pointer"
           onClick={() => {
@@ -47,7 +47,7 @@ const CategoryList = () => {
         </button>
       </div>
       <div className="flex flex-col items-center justify-center p-4 shadow-lg shadow-slate-500 border-0 space-x-4 mb-2 w-full font-bold rounded-2xl text-2xl">
-        <h3 className="font-mono">Icono</h3>
+        <h3 className="font-mono text-center">Icono</h3>
         <div className="inline-flex space-x-4 p-4">
           <div
             className={`flex justify-center items-center`}

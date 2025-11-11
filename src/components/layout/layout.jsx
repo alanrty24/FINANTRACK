@@ -10,10 +10,10 @@ import { useLocation } from "react-router-dom";
 
 const links = [
   { name: "Dashboard", href: "/", icon: HiHome },
-  { name: "Transaction", href: "/transaction", icon: BiMoneyWithdraw },
-  { name: "Categories", href: "/categories", icon: TbCategoryFilled },
-  { name: "Analytics", href: "/analytics", icon: FaRegChartBar },
-  { name: "Configuration", href: "/configuration", icon: IoSettingsSharp },
+  { name: "Transacciones", href: "/transaction", icon: BiMoneyWithdraw },
+  { name: "Categorias", href: "/categories", icon: TbCategoryFilled },
+  { name: "Analisis", href: "/analytics", icon: FaRegChartBar },
+  { name: "Configuración", href: "/configuration", icon: IoSettingsSharp },
 ];
 
 const Layout = ({ children }) => {

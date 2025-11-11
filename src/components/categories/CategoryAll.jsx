@@ -66,7 +66,7 @@ const CategoryAll = () => {
         </button>
       </Card>
       <section className="p-4 bg-(--federal-blue) rounded-2xl overflow-y-auto">
-        <h3 className="text-center font-mono font-bold text-xl md:text-2xl mb-4 text-white">
+        <h3 className="text-center font-mono font-bold text-2xl mb-4 text-white">
           Categorias
         </h3>
         <div className="flex flex-col gap-4">
@@ -74,7 +74,7 @@ const CategoryAll = () => {
             return (
               <article
                 key={i}
-                className={`p-4 flex items-center space-x-8 cursor-pointer rounded-2xl border-2 border-white ${
+                className={`px-4 py-2 flex items-center space-x-8 cursor-pointer rounded-2xl border-2 border-white ${
                   cat.type === "income" ? "bg-green-300" : "bg-red-300"
                 }`}
               >

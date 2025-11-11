@@ -12,7 +12,7 @@ import { useEffect } from "react";
 
 const CategoriesForm = ({ onClose }) => {
   const addCategory = useCategoryStore((state) => state.addCategory);
-  const [nameIcon,setNameIcon] = useState("");
+  const [nameIcon, setNameIcon] = useState("");
   const [data, setData] = useState({
     icon: "",
     name: "",
@@ -21,13 +21,13 @@ const CategoriesForm = ({ onClose }) => {
   });
 
   useEffect(() => {
-    if(data.name && data.name !== nameIcon){
+    if (data.name && data.name !== nameIcon) {
       setData({
         ...data,
         name: nameIcon,
-      })
+      });
     }
-  } , [data.name]);
+  }, [data.name]);
 
   const {
     handleSubmit,
@@ -41,7 +41,7 @@ const CategoriesForm = ({ onClose }) => {
     // e.preventdefault();
     if (data.icon === "") {
       alert("Seleccione un Icon");
-      return
+      return;
     }
 
     await addCategory(data);
@@ -56,14 +56,14 @@ const CategoriesForm = ({ onClose }) => {
       name: name,
     });
 
-    setNameIcon(name)
+    setNameIcon(name);
   };
 
   return (
-    <Card className={"max-w-7xl relative md:px-8 md:py-4"}>
+    <Card className={"max-w-7xl relative md:px-8 md:py-4 "}>
       <div className="shadow-slate-300 bg-(--federal-blue) shadow-xl w-full h-10 mb-4 flex justify-between px-4 items-center text-3xl gap-4 relative inset-x-0 top-0 border-1 rounded-xl">
-        <h3 className="font-mono text-center w-full text-white">
-          New Categorie
+        <h3 className="font-mono text-center w-full text-white text-2xl">
+          Nueva Categoria
         </h3>
         <button
           className="flex justify-center items-center cursor-pointer"
@@ -79,22 +79,22 @@ const CategoriesForm = ({ onClose }) => {
         className="flex flex-col gap-2"
         onSubmit={handleSubmit(handleSave)}
       >
-        <IconsSelect 
-        onChange={handleClickIcon} 
-        iconValue={{
+        <IconsSelect
+          onChange={handleClickIcon}
+          iconValue={{
             id: "",
             name: "",
             icon: "",
-        }}
-        onName = {(nameInput) => {
-          setValue("name",nameInput)
-        }}
+          }}
+          onName={(nameInput) => {
+            setValue("name", nameInput);
+          }}
         />
         <Input
           {...register("name", { required: "Error, nombre requerido" })}
           type="text"
-          placesholder="Name"
-          label={"Name"}
+          placesholder="Nombre"
+          label={"Nombre"}
           id={"name"}
           classNameDiv={"flex flex-col gap-2"}
           value={data.name}
@@ -112,13 +112,15 @@ const CategoriesForm = ({ onClose }) => {
         )}
         <div className="flex flex-col gap-2">
           <label htmlFor="">Tipo</label>
-          <select 
-          defaultValue={data.type} 
-          className="p-4 border-2 rounded-3xl"
-          onChange={(e) => {setData({
-              ...data,
-                type: e.target.value
-            });}}
+          <select
+            defaultValue={data.type}
+            className="p-4 border-2 rounded-3xl"
+            onChange={(e) => {
+              setData({
+                ...data,
+                type: e.target.value,
+              });
+            }}
           >
             <option value="income">Ingresos</option>
             <option value="expense">Gastos</option>
@@ -135,12 +137,16 @@ const CategoriesForm = ({ onClose }) => {
               ...data,
               status: e.target.checked,
             });
-            console.log(e.target.checked);
           }}
         ></Input>
-        <Button className={"w-full p-4 text-xl font-bold my-4 "} type="submit">
-          Create
-        </Button>
+        <div className="flex justify-center">
+          <Button
+            className={"w-full px-4 py-2 text-xl font-bold my-4 lg:w-1/4 "}
+            type="submit"
+          >
+            Create
+          </Button>
+        </div>
       </form>
     </Card>
   );
