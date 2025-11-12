@@ -1,0 +1,19 @@
+option{
+    background-color: var(--federal-blue);
+    color: white;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0; /* Necesario en Safari/Chrome para eliminar el espacio */
+}
+
+@media screen and (width > 728px) {
+    .type{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 25%;      
+    }
+}

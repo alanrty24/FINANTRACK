@@ -1,3 +1,5 @@
+
+
 export const CATEGORIES = {
   income: [
     { id: "salary", name: "Salario", icon: "💼" },
@@ -28,3 +30,4 @@ export const NEWCATEGORIES = [
   { id: "pack", name: "Paquete", icon: "📦" },
   { id: "graphics", name: "Graficos", icon: "📊" },
 ];
+
