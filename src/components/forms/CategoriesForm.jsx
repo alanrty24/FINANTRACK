@@ -63,7 +63,7 @@ const CategoriesForm = ({ onClose }) => {
   return (
     <Card className={"max-w-7xl relative md:px-8 md:py-4 "}>
       <div className="shadow-slate-300 bg-(--federal-blue) shadow-xl w-full h-10 mb-4 flex justify-between px-4 items-center text-3xl gap-4 relative inset-x-0 top-0 border-1 rounded-xl">
-        <h3 className="font-mono text-center w-full text-white text-2xl">
+        <h3 className="font-mono w-full text-white text-xl">
           Nueva Categoria
         </h3>
         <button

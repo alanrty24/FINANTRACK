@@ -58,7 +58,7 @@ const TransactionsForm = ({ onClose }) => {
   const type = watch("type");
 
   return (
-    <Card className={`flex flex-col gap-4`}>
+    <Card className={`flex flex-col gap-4 md:px-8`}>
         {/* Header para salir */}
       <div className="shadow-slate-300 bg-(--federal-blue) shadow-xl w-full h-10 mb-4 flex justify-between px-4 py-2 items-center text-3xl gap-4 relative inset-x-0 top-0 border-1 rounded-xl">
         <h3 className="font-mono w-full text-white text-xl">
@@ -86,7 +86,7 @@ const TransactionsForm = ({ onClose }) => {
             value={data.amount}
             onChange={(e) => {setData({...data, amount: e.target.value})}}
             placeholder="0.00"
-            className="text-white p-4 text-2xl w-1/2 text-center placeholder:text-white outline-0"
+            className="text-white p-4 text-2xl text-center placeholder:text-white outline-0"
           />
         </div>
 
@@ -150,7 +150,7 @@ const TransactionsForm = ({ onClose }) => {
         {/* Button de guardar */}
         <div className="flex justify-between">
         <Button
-        className = {'flex gap-2 justify-center items-center my-4 w-1/2'}
+        className = {'flex gap-2 justify-center items-center my-4 w-1/2 md:w-1/4'}
         size = {"md"}
         type = "submit"
         >

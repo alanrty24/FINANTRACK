@@ -21,7 +21,7 @@ const Transaction = () => {
       <section className={`flex-col gap-4 ${isOpenPage ? "hidden" : "flex"}`}>
         <Button
           variant={"new"}
-          className={`w-full`}
+          className={`w-full lg:w-1/4`}
           onClick={() => {
             setIsOpenPage(true);
           }}
