@@ -12,7 +12,6 @@ const useCategoryStore = create(
             {
               ...category,
               createAt: new Date().toISOString(),
-              id: crypto.randomUUID().slice(0, 5),
             },
             ...state.categories,
           ],
@@ -36,7 +35,7 @@ const useCategoryStore = create(
         }));
       },
     }),
-    { name: "category", version: 1 }
+    { name: "category", version: 2 }
   )
 );
 

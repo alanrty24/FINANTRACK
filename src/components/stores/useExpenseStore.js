@@ -33,7 +33,7 @@ const useExpenseStore =
             filters: { ...state.filters, ...newFilter },
           })),
       }),
-      { name: "transactions", version: 1 }
+      { name: "transactions", version: 2 }
     )
   );
 

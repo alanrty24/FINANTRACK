@@ -15,7 +15,7 @@ const Button = forwardRef(
     ref
   ) => {
     const variants = {
-      primary: "rounded-2xl px-4 py-2 bg-(--federal-blue) border-2 border-black text-white transition-all duration-500 hover:text-(--light-cyan) cursor-pointer hover:-translate-y-1 hover:bg-(--blue-green) hover:border-2 hover:border-black hover:cursor-pointer ",
+      primary: "rounded-lg px-4 py-2 bg-(--federal-blue) border-2 border-black text-white transition-all duration-500 hover:text-(--light-cyan) cursor-pointer hover:-translate-y-1 hover:bg-(--blue-green) hover:border-2 hover:border-black hover:cursor-pointer ",
 
       secundary: "rounded-2xl bg-(--light-cyan) text-(--federal-blue) font-bold border-2 border-white cursor-pointer transition-all duration-500 hover:text-(--light-cyan) hover:-translate-y-1 hover:bg-(--blue-green) hover:border-2 hover:cursor-pointer ",
 

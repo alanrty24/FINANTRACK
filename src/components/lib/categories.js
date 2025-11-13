@@ -2,19 +2,19 @@
 
 export const CATEGORIES = {
   income: [
-    { id: "salary", name: "Salario", icon: "💼" },
-    { id: "freelance", name: "Freelance", icon: "💻" },
-    { id: "investment", name: "Inversiones", icon: "📈" },
-    { id: "other-income", name: "Otro", icon: "💰" },
+    { id: "salary", name: "Salario", icon: "💼"  , type: "income", status: "true" , createAt: "2025-11-13T01:50:33.797z"},
+    { id: "freelance", name: "Freelance", icon: "💻" , type: "income", status: "true" , createAt: "2025-11-13T01:50:33.797z" },
+    { id: "investment", name: "Inversiones", icon: "📈"  , type: "income", status: "true" , createAt: "2025-11-13T01:50:33.797z"},
+    { id: "other-income", name: "Otro", icon: "💰" , type: "income", status: "true" , createAt: "2025-11-13T01:50:33.797z" },
   ],
   expense: [
-    { id: "food", name: "Comida", icon: "🍕" },
-    { id: "transport", name: "Transporte", icon: "🚗" },
-    { id: "entertaiment", name: "Entretenimiento", icon: "🎬" },
-    { id: "shopping", name: "Compras", icon: "🛍️" },
-    { id: "bills", name: "Servicios", icon: "📄" },
-    { id: "health", name: "Salud", icon: "🏥" },
-    { id: "other-expense", name: "Otro", icon: "💸" },
+    { id: "food", name: "Comida", icon: "🍕" , type: "expense", status: "true" , createAt: "2025-11-13T01:50:33.797z" },
+    { id: "transport", name: "Transporte", icon: "🚗" , type: "expense", status: "true" , createAt: "2025-11-13T01:50:33.797z" },
+    { id: "entertaiment", name: "Entretenimiento", icon: "🎬" , type: "expense", status: "true" , createAt: "2025-11-13T01:50:33.797z" },
+    { id: "shopping", name: "Compras", icon: "🛍️" , type: "expense", status: "true" , createAt: "2025-11-13T01:50:33.797z" },
+    { id: "bills", name: "Servicios", icon: "📄" , type: "expense", status: "true" , createAt: "2025-11-13T01:50:33.797z" },
+    { id: "health", name: "Salud", icon: "🏥"  , type: "expense", status: "true" , createAt: "2025-11-13T01:50:33.797z"},
+    { id: "other-expense", name: "Otro", icon: "💸" , type: "expense", status: "true" , createAt: "2025-11-13T01:50:33.797z" },
   ],
 };
 

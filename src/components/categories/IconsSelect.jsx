@@ -27,7 +27,7 @@ const IconsSelect = ({ onChange, iconValue, onName }) => {
 
     setIsOpen(false);
     onName(newCat.name)
-    onChange(newCat.icon, newCat.name);
+    onChange(newCat);
   };
 
   return (

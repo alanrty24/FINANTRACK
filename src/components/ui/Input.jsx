@@ -6,7 +6,7 @@ const Input = ({label, type = "text" , required, className, classNameDiv , place
     <div className= {cn(classNameDiv + " mt-2 focus:outline-(--marian-blue) ")}>
         {label && (<label htmlFor="" className='text-base'>{label}</label>)}
         <input 
-        className={cn(className + ` p-4  border-2 rounded-2xl border-[#03045e]`)}
+        className={cn(className + ` p-4  border-2 rounded-xl border-[#03045e]`)}
         type= {type}
         required = {required}
         placeholder= {placesholder}

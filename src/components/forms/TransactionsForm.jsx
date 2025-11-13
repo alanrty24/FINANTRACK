@@ -8,6 +8,9 @@ import Input from "../ui/Input";
 import { useState } from "react";
 import "../styles/transactionsform.css";
 import { CATEGORIES } from "../lib/categories";
+import Button from "../ui/Button";
+import { FaSave } from "react-icons/fa";
+import { HiArrowLeft } from "react-icons/hi";
 
 const TransactionsForm = ({ onClose }) => {
   const { categories } = useCategoryStore();
@@ -15,7 +18,7 @@ const TransactionsForm = ({ onClose }) => {
     type: "income",
     category: "",
     description: "",
-    amount: 0,
+    amount: "",
     date: new Date().toISOString().split("T")[0],
   });
   const addTransaction = useExpenseStore((state) => state.addTransaction);
@@ -23,7 +26,7 @@ const TransactionsForm = ({ onClose }) => {
     handleSubmit,
     register,
     watch,
-    // reset,
+    reset,
     // formState: { errors },
   } = useForm({
     defaultValues: {
@@ -47,6 +50,9 @@ const TransactionsForm = ({ onClose }) => {
       ...data,
       amount: parseFloat(data.amount),
     });
+
+    reset();
+    onClose();
   };
 
   const type = watch("type");
@@ -61,7 +67,7 @@ const TransactionsForm = ({ onClose }) => {
         <button
           className="flex justify-center items-center cursor-pointer"
           onClick={() => {
-            onClose();
+            onClose()
           }}
         >
           <IoClose className="text-white" />
@@ -75,9 +81,10 @@ const TransactionsForm = ({ onClose }) => {
         <div className="px-4 py-6 w-full bg-(--federal-blue) rounded-2xl flex justify-center items-center">
           <h3 className="text-white w-auto text-2xl">Bs</h3>
           <input
-            {...register("name", { required: "Error, Monto invalido" })}
+            {...register("amount", { required: "Error, Monto invalido" })}
             type="number"
-            name="name"
+            value={data.amount}
+            onChange={(e) => {setData({...data, amount: e.target.value})}}
             placeholder="0.00"
             className="text-white p-4 text-2xl w-1/2 text-center placeholder:text-white outline-0"
           />
@@ -115,18 +122,48 @@ const TransactionsForm = ({ onClose }) => {
             }}
           >
             {allCategorias[data.type].map((cat, i) => {
-               return(<option key={i}>{cat.icon} {cat.name}</option>)
+               return(<option key={i} value={cat.id}>{cat.icon} {cat.name}</option>)
             })}
           </select>
         </div>
 
         {/* Entrada de Descripción */}
         <Input
+        {...register("description",{required: "Error, Descripción Requerida"})}
         label={"Descripción"}
         classNameDiv={"flex flex-col gap-2"}
         className={"bg-white text-(--federal-blue) border-2 border-blue-950 placeholder:text-(--federal-blue)"}
         >
         </Input>
+
+        {/* Entrada de Fecha */}
+        <Input
+        {...register("date",{required: "Error, Fecha Requerida"})}
+        label={"Fecha"}
+        type="date"
+        value = {data.date}
+        classNameDiv={"flex flex-col gap-2"}
+        className={"bg-white text-(--federal-blue) border-2 border-blue-950 placeholder:text-(--federal-blue)"}
+        >
+        </Input>
+
+        {/* Button de guardar */}
+        <div className="flex justify-between">
+        <Button
+        className = {'flex gap-2 justify-center items-center my-4 w-1/2'}
+        size = {"md"}
+        type = "submit"
+        >
+          <FaSave /> Guardar
+        </Button>
+        <Button 
+        className = {'flex gap-2 justify-center items-center my-4 '}
+        variant = {"edit"}
+        onClick = {() => {onClose()}}
+        >
+            <HiArrowLeft/> Cancelar
+        </Button>
+        </div>
       </form>
     </Card>
   );

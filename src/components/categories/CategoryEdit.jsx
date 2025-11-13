@@ -61,11 +61,12 @@ const CategoryEdit = () => {
     activePage();
   };
 
-  const handleClickIcon = (icon, name) => {
+  const handleClickIcon = (newIcon) => {
     setData({
       ...data,
-      icon: icon,
-      name: name,
+      icon: newIcon.icon,
+      name: newIcon.name,
+      id: newIcon.id
     });
   };
 
