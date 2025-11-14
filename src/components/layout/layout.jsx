@@ -110,7 +110,7 @@ const Layout = ({ children }) => {
       </section>
 
       {/* Visualización */}
-      <div className="lg:pl-64">
+      <div className="lg:pl-60">
         {/* Header Mobile */}
         <div
           className={`fixed inset-x-0 h-16 shadow-2xl z-10 flex items-center justify-between p-4 text-2xl bg-(--light-cyan) ${
