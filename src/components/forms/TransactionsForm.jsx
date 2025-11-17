@@ -27,7 +27,7 @@ const TransactionsForm = ({ onClose }) => {
     register,
     watch,
     reset,
-    // formState: { errors },
+    formState: { errors },
   } = useForm({
     defaultValues: {
       date: new Date().toISOString().split("T")[0],
@@ -38,11 +38,11 @@ const TransactionsForm = ({ onClose }) => {
   const allCategorias = {
     income: [
       ...CATEGORIES.income,
-      ...categories.filter((cat) => cat.type === "income"),
+      ...categories.filter((cat) => cat.type === "income" && cat.status === true),
     ],
     expense: [
       ...CATEGORIES.expense,
-      ...categories.filter((cat) => cat.type === "expense"),
+      ...categories.filter((cat) => cat.type === "expense" && cat.status === true),
     ],
   };
   const handleSaveTransaction = (data) => {
@@ -59,7 +59,7 @@ const TransactionsForm = ({ onClose }) => {
 
   return (
     <Card className={`flex flex-col gap-4 md:px-8`}>
-        {/* Header para salir */}
+      {/* Header para salir */}
       <div className="shadow-slate-300 bg-(--federal-blue) shadow-xl w-full h-10 mb-4 flex justify-between px-4 py-2 items-center text-3xl gap-4 relative inset-x-0 top-0 border-1 rounded-xl">
         <h3 className="font-mono w-full text-white text-xl">
           Nueva Transacción
@@ -67,7 +67,7 @@ const TransactionsForm = ({ onClose }) => {
         <button
           className="flex justify-center items-center cursor-pointer"
           onClick={() => {
-            onClose()
+            onClose();
           }}
         >
           <IoClose className="text-white" />
@@ -84,11 +84,18 @@ const TransactionsForm = ({ onClose }) => {
             {...register("amount", { required: "Error, Monto invalido" })}
             type="number"
             value={data.amount}
-            onChange={(e) => {setData({...data, amount: e.target.value})}}
+            onChange={(e) => {
+              setData({ ...data, amount: e.target.value });
+            }}
             placeholder="0.00"
             className="text-white p-4 text-2xl text-center placeholder:text-white outline-0"
           />
         </div>
+        {errors.amount && (
+          <p className="text-red-500 text-center font-bold">
+            {errors.amount.message}
+          </p>
+        )}
 
         {/* Entrada del tipo */}
         <div className="flex flex-col items-center justify-center gap-2 type">
@@ -122,47 +129,69 @@ const TransactionsForm = ({ onClose }) => {
             }}
           >
             {allCategorias[data.type].map((cat, i) => {
-               return(<option key={i} value={cat.id}>{cat.icon} {cat.name}</option>)
+              return (
+                <option key={i} value={cat.id}>
+                  {cat.icon} {cat.name}
+                </option>
+              );
             })}
           </select>
         </div>
 
         {/* Entrada de Descripción */}
         <Input
-        {...register("description",{required: "Error, Descripción Requerida"})}
-        label={"Descripción"}
-        classNameDiv={"flex flex-col gap-2"}
-        className={"bg-white text-(--federal-blue) border-2 border-blue-950 placeholder:text-(--federal-blue)"}
-        >
-        </Input>
+          {...register("description", {
+            required: "Error, Descripción Requerida",
+          })}
+          label={"Descripción"}
+          classNameDiv={"flex flex-col gap-2"}
+          className={
+            "bg-white text-(--federal-blue) border-2 border-blue-950 placeholder:text-(--federal-blue)"
+          }
+        />
+        {errors.description && (
+          <p className="text-red-500 text-center font-bold">
+            {errors.description.message}
+          </p>
+        )}
 
         {/* Entrada de Fecha */}
         <Input
-        {...register("date",{required: "Error, Fecha Requerida"})}
-        label={"Fecha"}
-        type="date"
-        value = {data.date}
-        classNameDiv={"flex flex-col gap-2"}
-        className={"bg-white text-(--federal-blue) border-2 border-blue-950 placeholder:text-(--federal-blue)"}
-        >
-        </Input>
+          {...register("date", { required: "Error, Fecha Requerida" })}
+          label={"Fecha"}
+          type="date"
+          value={data.date}
+          classNameDiv={"flex flex-col gap-2"}
+          className={
+            "bg-white text-(--federal-blue) border-2 border-blue-950 placeholder:text-(--federal-blue)"
+          }
+        />
+        {errors.date && (
+          <p className="text-red-500 text-center font-bold">
+            {errors.date.message}
+          </p>
+        )}
 
         {/* Button de guardar */}
         <div className="flex justify-between">
-        <Button
-        className = {'flex gap-2 justify-center items-center my-4 w-1/2 md:w-1/4'}
-        size = {"md"}
-        type = "submit"
-        >
-          <FaSave /> Guardar
-        </Button>
-        <Button 
-        className = {'flex gap-2 justify-center items-center my-4 '}
-        variant = {"edit"}
-        onClick = {() => {onClose()}}
-        >
-            <HiArrowLeft/> Cancelar
-        </Button>
+          <Button
+            className={
+              "flex gap-2 justify-center items-center my-4 w-1/2 md:w-1/4"
+            }
+            size={"md"}
+            type="submit"
+          >
+            <FaSave /> Guardar
+          </Button>
+          <Button
+            className={"flex gap-2 justify-center items-center my-4 "}
+            variant={"edit"}
+            onClick={() => {
+              onClose();
+            }}
+          >
+            <HiArrowLeft /> Cancelar
+          </Button>
         </div>
       </form>
     </Card>

@@ -1,12 +1,13 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Layout from "./components/layout/Layout";
+import Layout from "./components/layout/layout";
 import Dashboard from "./components/pages/Dashboard";
 import Categories from "./components/pages/Categories";
 import CategoryList from "./components/categories/CategoryList";
 import CategoryEdit from "./components/categories/CategoryEdit";
 import CategoryAll from "./components/categories/CategoryAll";
 import Transaction from "./components/pages/Transaction";
+import Goals from "./components/pages/Goals";
 
 
 const Analytics = () => {
@@ -30,6 +31,7 @@ const App = () => {
           <Route path=":id/edit" element={<CategoryEdit />}/>
           <Route path="all" element={<CategoryAll />}/>
         </Route>
+        <Route path="/goals" element={<Goals />} />
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/configuration" element={<Configuration />} />
       </Routes>

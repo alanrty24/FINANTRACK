@@ -4,6 +4,7 @@ import { BiMoneyWithdraw } from "react-icons/bi";
 import { FaRegChartBar } from "react-icons/fa";
 import { HiArrowLeft, HiHome, HiMenu } from "react-icons/hi";
 import { IoSettingsSharp } from "react-icons/io5";
+import { LuGoal } from "react-icons/lu";
 import { TbCategoryFilled, TbPigMoney } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
@@ -12,6 +13,7 @@ const links = [
   { name: "Dashboard", href: "/", icon: HiHome },
   { name: "Transacciones", href: "/transaction", icon: BiMoneyWithdraw },
   { name: "Categorias", href: "/categories", icon: TbCategoryFilled },
+  { name: "Metas", href: "/goals", icon: LuGoal },
   { name: "Analisis", href: "/analytics", icon: FaRegChartBar },
   { name: "Configuración", href: "/configuration", icon: IoSettingsSharp },
 ];
