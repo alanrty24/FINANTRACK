@@ -28,7 +28,7 @@ const GoalsForms = ({ onClose }) => {
     },
   });
 
-  const handleSave = (data) => {
+  const handleSave = () => {
     addGoals({
       ...data,
       amount: parseFloat(data.amount),

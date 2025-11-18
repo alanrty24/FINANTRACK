@@ -66,7 +66,7 @@ const useGoalsStore = create(
           goals: [...status.goals.filter((g) => g.id !== id)],
         })),
     }),
-    { name: "Goals", version: 1 }
+    { name: "Goals", version: 2 }
   )
 );
 
