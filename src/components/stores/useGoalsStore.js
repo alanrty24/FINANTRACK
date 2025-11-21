@@ -33,23 +33,40 @@ const useGoalsStore = create(
         })),
         
       // Actualiza Meta   
-      updadteGoals: (goal) =>
+      updadteGoals: (idGoal,values) =>
         set((status) => ({
-          goalsAudit: [
-            {
-              ...status.goals.filter((g) => g.id === goal.id),
-              status: 1,
-              updateAt: new Date().toISOString(),
-            },
-            ...status.goalsAudit,
-          ],
-          goals: [
-            ...status.goals.filter((g) => g.id !== goal.id),
-            {
-              ...goal,
-              createAt: new Date().toISOString(),
-            },
-          ],
+          goals: status.goals.map(goal => {
+            let value = {}
+            if (idGoal === goal.id) {
+              value = {
+                ...goal,
+                amountGoal: values.amount,
+                percentage: values.percentage,
+                createAt: new Date().toISOString(),
+              }
+            } else {
+              value = {...goal}
+            }
+
+            return value; 
+          })
+          ,
+          goalsAudit: status.goals.map(goal => {
+            let value = {}
+            if (idGoal === goal.id) {
+              value = {
+                ...goal,
+                amountGoal: values.amount,
+                percentage: values.percentage,
+                status: 1,
+                updateAt: new Date().toISOString(),
+              }
+            } else {
+              value = {...goal}
+            }
+
+            return value; 
+          })
         })),
 
       // Elimina Meta   
@@ -63,10 +80,10 @@ const useGoalsStore = create(
             },
             ...status.goalsAudit,
           ],
-          goals: [...status.goals.filter((g) => g.id !== id)],
+          goals: status.goals.filter((g) => g.id !== id),
         })),
     }),
-    { name: "Goals", version: 2 }
+    { name: "goals", version: 1 }
   )
 );
 
