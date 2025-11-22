@@ -5,6 +5,7 @@ export const CATEGORIES = {
     { id: "salary", name: "Salario", icon: "💼"  , type: "income", status: "true" , createAt: "2025-11-13T01:50:33.797z"},
     { id: "freelance", name: "Freelance", icon: "💻" , type: "income", status: "true" , createAt: "2025-11-13T01:50:33.797z" },
     { id: "investment", name: "Inversiones", icon: "📈"  , type: "income", status: "true" , createAt: "2025-11-13T01:50:33.797z"},
+    { id: "savings", name: "Ahorros", icon: "💲" , type: "income", status: "true" , createAt: "2025-11-13T01:50:33.797z" },
     { id: "other-income", name: "Otro", icon: "💰" , type: "income", status: "true" , createAt: "2025-11-13T01:50:33.797z" },
   ],
   expense: [

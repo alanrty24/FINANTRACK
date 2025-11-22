@@ -11,9 +11,11 @@ import { CATEGORIES } from "../lib/categories";
 import Button from "../ui/Button";
 import { FaSave } from "react-icons/fa";
 import { HiArrowLeft } from "react-icons/hi";
+// import useGoalsStore from "../stores/useGoalsStore";
 
 const TransactionsForm = ({ onClose }) => {
   const { categories } = useCategoryStore();
+  // const { goals, updatedGoals } = useGoalsStore();
   const [data, setData] = useState({
     type: "income",
     category: "",
@@ -38,11 +40,15 @@ const TransactionsForm = ({ onClose }) => {
   const allCategorias = {
     income: [
       ...CATEGORIES.income,
-      ...categories.filter((cat) => cat.type === "income" && cat.status === true),
+      ...categories.filter(
+        (cat) => cat.type === "income" && cat.status === true
+      ),
     ],
     expense: [
       ...CATEGORIES.expense,
-      ...categories.filter((cat) => cat.type === "expense" && cat.status === true),
+      ...categories.filter(
+        (cat) => cat.type === "expense" && cat.status === true
+      ),
     ],
   };
   const handleSaveTransaction = (data) => {
@@ -137,6 +143,37 @@ const TransactionsForm = ({ onClose }) => {
             })}
           </select>
         </div>
+
+        {/* Entrada de Ahorro
+        <div
+          className={`flex-col gap-2 category ${
+            data.category === "savings" ? "flex" : "hidden"
+          }`}
+        >
+          <h3 className="text-start w-full">Meta</h3>
+          <select
+            {...register("idGoal", { required: "Error, seleccione una meta" })}
+            value={data.idGoal}
+            className="p-4 bg-white text-(--federal-blue) border-2 border-blue-950 md:w-1/2"
+            onChange={(e) => {
+              setData({ ...data, idGoal: e.target.value });
+            }}
+          >
+            {goals.length === 0 ? (
+              <option desabled value={""}>
+                No hay registros ...
+              </option>
+            ) : (
+              goals.map((goal, i) => {
+                return (
+                  <option key={i} value={goal.id}>
+                    {goal.name}
+                  </option>
+                );
+              })
+            )}
+          </select>
+        </div> */}
 
         {/* Entrada de Descripción */}
         <Input

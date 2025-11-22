@@ -33,7 +33,7 @@ const RecentGoals = () => {
                 <section className="flex items-center space-x-2">
                   <h3 className="font-bold text-xl">{goal.name}</h3>
                    {/* Monto de la meta */}
-                  <span className="text-center font-light">
+                  <span className="text-center font-semibold text-green-700">
                     ({goal.amount} Bs)
                   </span>
                 </section>
