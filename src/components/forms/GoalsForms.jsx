@@ -90,21 +90,6 @@ const GoalsForms = ({ onClose }) => {
           </p>
         )}
         
-        {/* Monto Ahorrado de la meta */}
-        <Input
-          {...register("name", { required: "Error, Requiere Nombre" })}
-          label={"Nombre de Meta "}
-          classNameDiv={`flex flex-col gap-2 `}
-          type="text"
-          name="name"
-          value={data.name}
-          onChange={(e) => setData({ ...data, name: e.target.value })}
-        />
-        {errors.name && (
-          <p className="text-red-500 text-center font-bold">
-            {errors.name.message}
-          </p>
-        )}
 
         {/* fecha de la meta */}
         <Input

@@ -20,9 +20,8 @@ const RecentGoals = () => {
           </p>
         ) : (
           recentGoals.map((goal, i) => {
-            const index = parseInt(Math.random() * 5);
-            setTimeout(() => {} , 100) 
-            console.log(index);
+            const amountGoal = goal.amountGoal
+            const percentage = (amountGoal / goal.amount) * 100; 
             
             return (
               <Card
@@ -41,15 +40,15 @@ const RecentGoals = () => {
                 {/* Barra de progreso */}
                 <section className="flex items-center gap-2">
                   {/* barra de progreso */}
-                  <article className="flex-1 border-2 rounded-xl">
+                  <article className="flex-1 border-2 border-blue-900 rounded-xl">
                     <div
-                      className="p-2 rounded-full bg-(--blue-green)"
-                      style={{ width: `${30}%` }}
+                      className={`rounded-full bg-(--blue-green) ${percentage === 0 ? "py-2 px-0" : "p-2"}`}
+                      style={{ width: `${percentage}%` }}
                     ></div>
                   </article>
 
                   {/* Porcentaje de progreso */}
-                  <h3 className="font-bold text-center">30%</h3>
+                  <h3 className="font-bold text-center">{percentage}%</h3>
 
                 </section>
 

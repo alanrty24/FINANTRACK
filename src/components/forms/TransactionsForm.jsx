@@ -11,16 +11,22 @@ import { CATEGORIES } from "../lib/categories";
 import Button from "../ui/Button";
 import { FaSave } from "react-icons/fa";
 import { HiArrowLeft } from "react-icons/hi";
-// import useGoalsStore from "../stores/useGoalsStore";
+import useGoalsStore from "../stores/useGoalsStore";
+import { useEffect } from "react";
 
 const TransactionsForm = ({ onClose }) => {
   const { categories } = useCategoryStore();
-  // const { goals, updatedGoals } = useGoalsStore();
+  const { goals, updadteGoals } = useGoalsStore();
+  const goalsActives = goals.filter((goal) => goal.status === true);
+  const [goalSelect, setGoalSelect] = useState({});
+  const [totalGoal, setTotalGoal] = useState(true);
+  const [statusGoal, setStatusGoal] = useState(true);
   const [data, setData] = useState({
     type: "income",
     category: "",
     description: "",
     amount: "",
+    idGoal: "",
     date: new Date().toISOString().split("T")[0],
   });
   const addTransaction = useExpenseStore((state) => state.addTransaction);
@@ -51,10 +57,33 @@ const TransactionsForm = ({ onClose }) => {
       ),
     ],
   };
-  const handleSaveTransaction = (data) => {
-    addTransaction({
+  const handleSaveTransaction = async (data) => {
+    console.log(totalGoal);
+    console.log(goalSelect.amountGoal);
+    console.log(totalGoal / goalSelect.amountGoal);
+
+
+    if (data.category === "savings") {
+      if (totalGoal / goalSelect.amount > 1) {
+        alert(
+          "El monto a utilizar es mayor aceptado para la meta, intente con otra meta o reduzca el monto"
+        );
+        setTotalGoal(0);
+        return;
+      } else if (totalGoal / goalSelect.amount === 1) {
+        setStatusGoal(false);
+      }
+    }
+
+    await addTransaction({
       ...data,
       amount: parseFloat(data.amount),
+    });
+
+    
+    await updadteGoals(data.idGoal, {
+      amountGoal: parseFloat(data.amount),
+      status: statusGoal,
     });
 
     reset();
@@ -62,6 +91,22 @@ const TransactionsForm = ({ onClose }) => {
   };
 
   const type = watch("type");
+
+  // function handleOnchageGoal(e) {
+  //   const findGoal = goals.find((goal) => goal.id === data.idGoal);
+  //   setData(e.target.value);
+  //   setGoalSelect(findGoal);
+  // }
+
+  useEffect(() => {
+    if (data.category === "savings") {
+      const findGoal = goals.find((goal) => goal.id === data.idGoal);
+      const amountTotalGoal = findGoal.amountGoal + parseFloat(data.amount);
+
+      setTotalGoal(amountTotalGoal);
+      setGoalSelect(findGoal);
+    }
+  }, [data.idGoal]);
 
   return (
     <Card className={`flex flex-col gap-4 md:px-8`}>
@@ -144,7 +189,7 @@ const TransactionsForm = ({ onClose }) => {
           </select>
         </div>
 
-        {/* Entrada de Ahorro
+        {/* Entrada de Ahorro */}
         <div
           className={`flex-col gap-2 category ${
             data.category === "savings" ? "flex" : "hidden"
@@ -153,18 +198,36 @@ const TransactionsForm = ({ onClose }) => {
           <h3 className="text-start w-full">Meta</h3>
           <select
             {...register("idGoal", { required: "Error, seleccione una meta" })}
-            value={data.idGoal}
+            value={data.idGoal || ""}
+            name="idGoal"
             className="p-4 bg-white text-(--federal-blue) border-2 border-blue-950 md:w-1/2"
             onChange={(e) => {
               setData({ ...data, idGoal: e.target.value });
             }}
           >
-            {goals.length === 0 ? (
+            <option value={""} disabled>
+              Metas
+            </option>
+            {goalsActives.length === 0 ? (
               <option desabled value={""}>
                 No hay registros ...
               </option>
             ) : (
-              goals.map((goal, i) => {
+              goalsActives.map((goal, i) => {
+                const restante = goal.amountGoal - goal.amount;
+
+                if (restante >= 0) {
+                  return (
+                    <option
+                      key={i}
+                      value={""}
+                      desabled
+                      className="bg-green-300"
+                    >
+                      {goal.name} (💸 Meta Lograda)
+                    </option>
+                  );
+                }
                 return (
                   <option key={i} value={goal.id}>
                     {goal.name}
@@ -173,7 +236,12 @@ const TransactionsForm = ({ onClose }) => {
               })
             )}
           </select>
-        </div> */}
+        </div>
+        {errors.idGoal && (
+          <p className="text-red-500 text-center font-bold">
+            {errors.idGoal.message}
+          </p>
+        )}
 
         {/* Entrada de Descripción */}
         <Input

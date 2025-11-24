@@ -10,7 +10,7 @@ const useGoalsStore = create(
 
       // Actions
 
-      // Inserta Meta   
+      // Inserta Meta
       addGoals: (goal) =>
         set((status) => ({
           goals: [
@@ -31,45 +31,44 @@ const useGoalsStore = create(
             ...status.goalsAudit,
           ],
         })),
-        
-      // Actualiza Meta   
-      updadteGoals: (idGoal,values) =>
+
+      // Actualiza Meta
+      updadteGoals: (idGoal, values) =>
         set((status) => ({
-          goals: status.goals.map(goal => {
-            let value = {}
+          goals: status.goals.map((goal) => {
+            let value = {};
             if (idGoal === goal.id) {
               value = {
                 ...goal,
-                amountGoal: values.amount,
-                percentage: values.percentage,
-                createAt: new Date().toISOString(),
-              }
+                status: values.status,
+                amountGoal: goal.amountGoal + values.amountGoal,
+                updateAt: new Date().toISOString(),
+              };
             } else {
-              value = {...goal}
+              value = { ...goal };
             }
 
-            return value; 
-          })
-          ,
-          goalsAudit: status.goals.map(goal => {
-            let value = {}
+            return value;
+          }),
+          goalsAudit: status.goals.map((goal) => {
+            let value = {};
             if (idGoal === goal.id) {
               value = {
                 ...goal,
-                amountGoal: values.amount,
+                amountGoal: goal.amountGoal + values.amountGoal,
                 percentage: values.percentage,
                 status: 1,
                 updateAt: new Date().toISOString(),
-              }
+              };
             } else {
-              value = {...goal}
+              value = { ...goal };
             }
 
-            return value; 
-          })
+            return value;
+          }),
         })),
 
-      // Elimina Meta   
+      // Elimina Meta
       deleteGoals: (id) =>
         set((status) => ({
           goalsAudit: [
