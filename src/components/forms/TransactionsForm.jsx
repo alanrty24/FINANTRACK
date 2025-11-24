@@ -19,7 +19,8 @@ const TransactionsForm = ({ onClose }) => {
   const { goals, updadteGoals } = useGoalsStore();
   const goalsActives = goals.filter((goal) => goal.status === true);
   const [goalSelect, setGoalSelect] = useState({});
-  const [totalGoal, setTotalGoal] = useState(true);
+  const [percentage, setPercentage] = useState(0);
+  const [totalGoal, setTotalGoal] = useState(0);
   const [statusGoal, setStatusGoal] = useState(true);
   const [data, setData] = useState({
     type: "income",
@@ -60,19 +61,16 @@ const TransactionsForm = ({ onClose }) => {
   const handleSaveTransaction = async (data) => {
     console.log(totalGoal);
     console.log(goalSelect.amountGoal);
-    console.log(totalGoal / goalSelect.amountGoal);
-
+    console.log(totalGoal / goalSelect.amount);
 
     if (data.category === "savings") {
-      if (totalGoal / goalSelect.amount > 1) {
+      if (percentage > 1) {
         alert(
           "El monto a utilizar es mayor aceptado para la meta, intente con otra meta o reduzca el monto"
         );
         setTotalGoal(0);
         return;
-      } else if (totalGoal / goalSelect.amount === 1) {
-        setStatusGoal(false);
-      }
+      } 
     }
 
     await addTransaction({
@@ -80,7 +78,6 @@ const TransactionsForm = ({ onClose }) => {
       amount: parseFloat(data.amount),
     });
 
-    
     await updadteGoals(data.idGoal, {
       amountGoal: parseFloat(data.amount),
       status: statusGoal,
@@ -102,9 +99,15 @@ const TransactionsForm = ({ onClose }) => {
     if (data.category === "savings") {
       const findGoal = goals.find((goal) => goal.id === data.idGoal);
       const amountTotalGoal = findGoal.amountGoal + parseFloat(data.amount);
+      const percentage = amountTotalGoal / findGoal.amount
+
+      if (percentage === 1) {
+        setStatusGoal((prev) => !prev)
+      }
 
       setTotalGoal(amountTotalGoal);
       setGoalSelect(findGoal);
+      setPercentage(percentage)
     }
   }, [data.idGoal]);
 
@@ -190,57 +193,65 @@ const TransactionsForm = ({ onClose }) => {
         </div>
 
         {/* Entrada de Ahorro */}
-        <div
-          className={`flex-col gap-2 category ${
-            data.category === "savings" ? "flex" : "hidden"
-          }`}
-        >
-          <h3 className="text-start w-full">Meta</h3>
-          <select
-            {...register("idGoal", { required: "Error, seleccione una meta" })}
-            value={data.idGoal || ""}
-            name="idGoal"
-            className="p-4 bg-white text-(--federal-blue) border-2 border-blue-950 md:w-1/2"
-            onChange={(e) => {
-              setData({ ...data, idGoal: e.target.value });
-            }}
-          >
-            <option value={""} disabled>
-              Metas
-            </option>
-            {goalsActives.length === 0 ? (
-              <option desabled value={""}>
-                No hay registros ...
-              </option>
-            ) : (
-              goalsActives.map((goal, i) => {
-                const restante = goal.amountGoal - goal.amount;
-
-                if (restante >= 0) {
-                  return (
-                    <option
-                      key={i}
-                      value={""}
-                      desabled
-                      className="bg-green-300"
-                    >
-                      {goal.name} (💸 Meta Lograda)
-                    </option>
-                  );
-                }
-                return (
-                  <option key={i} value={goal.id}>
-                    {goal.name}
+        {data.category === "savings" ? (
+          <>
+            <div
+              className={`flex-col gap-2 category ${
+                data.category === "savings" ? "flex" : "hidden"
+              }`}
+            >
+              <h3 className="text-start w-full">Meta</h3>
+              <select
+                {...register("idGoal", {
+                  required: "Error, seleccione una meta",
+                })}
+                value={data.idGoal || ""}
+                name="idGoal"
+                className="p-4 bg-white text-(--federal-blue) border-2 border-blue-950 md:w-1/2"
+                onChange={(e) => {
+                  setData({ ...data, idGoal: e.target.value });
+                }}
+              >
+                <option value={""} disabled>
+                  Metas
+                </option>
+                {goalsActives.length === 0 ? (
+                  <option desabled value={""}>
+                    No hay registros ...
                   </option>
-                );
-              })
+                ) : (
+                  goalsActives.map((goal, i) => {
+                    const restante = goal.amountGoal - goal.amount;
+
+                    if (restante >= 0) {
+                      return (
+                        <option
+                          key={i}
+                          value={""}
+                          desabled
+                          className="bg-green-300"
+                        >
+                          {goal.name} (💸 Meta Lograda)
+                        </option>
+                      );
+                    }
+                    return (
+                      <option key={i} value={goal.id}>
+                        {goal.name}
+                      </option>
+                    );
+                  })
+                )}
+              </select>
+            </div>
+            {errors.idGoal && (
+              <p className="text-red-500 text-center font-bold">
+                {errors.idGoal.message}
+              </p>
             )}
-          </select>
-        </div>
-        {errors.idGoal && (
-          <p className="text-red-500 text-center font-bold">
-            {errors.idGoal.message}
-          </p>
+          </>
+        ) : (
+          <></>
         )}
 
         {/* Entrada de Descripción */}
