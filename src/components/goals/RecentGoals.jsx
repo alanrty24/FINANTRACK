@@ -1,7 +1,9 @@
+import { FcCheckmark } from "react-icons/fc"; 
 import React from "react";
 import Card from "../ui/Card";
 import useGoalsStore from "../stores/useGoalsStore";
 import Circle from "../ui/Circle";
+import Button from "../ui/Button"
 import { formatDate } from "../lib/utils";
 // import { useAlert } from "../../hook/useAlert";
 
@@ -80,6 +82,9 @@ const RecentGoals = () => {
                   >
                     {goal.status ? "En Proceso" : "Completada"}
                   </Circle>
+                  <Button className="p-2 flex items-center justify-center rounded-2xl border-2 bg-green-200">
+                    <FcCheckmark />
+                  </Button>
                 </section>
               </Card>
             );

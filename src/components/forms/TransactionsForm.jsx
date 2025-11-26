@@ -60,7 +60,6 @@ const TransactionsForm = ({ onClose }) => {
   };
   const handleSaveTransaction = async (data) => {
     console.log(totalGoal);
-    console.log(goalSelect.amountGoal);
     console.log(totalGoal / goalSelect.amount);
 
     if (data.category === "savings") {

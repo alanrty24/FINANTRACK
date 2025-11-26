@@ -8,9 +8,9 @@ const useExpenseStore =
         // Inicializamos el estado
         transactions: [],
         filters: {
-          dateRange: "All",
-          type: "All",
-          category: "All",
+          dateRange: "all",
+          type: "all",
+          category: "all",
         },
         // Acciones
         addTransaction: (transaction) =>
