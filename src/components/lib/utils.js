@@ -10,11 +10,14 @@ export const formatAmount = (amount) => {
 }
 
 export const formatDate = (date) => {
+    const newDate = new Date(date); 
+    console.log(newDate);
+    
     return new Intl.DateTimeFormat("es-VE",{
         day:"2-digit",
-        month:"2-digit",
+        month:"short",
         year:"numeric"
-    }).format(new Date(date))
+    }).format(newDate)
 }
 
 export const csvFormat = (transactions) => {

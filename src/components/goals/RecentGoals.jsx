@@ -1,19 +1,62 @@
-import { FcCheckmark } from "react-icons/fc"; 
-import React from "react";
+import { BiCheck } from "react-icons/bi";
 import Card from "../ui/Card";
 import useGoalsStore from "../stores/useGoalsStore";
 import Circle from "../ui/Circle";
-import Button from "../ui/Button"
+import Button from "../ui/Button";
 import { formatDate } from "../lib/utils";
-// import { useAlert } from "../../hook/useAlert";
+import { useAlert } from "../../hook/useAlert";
+import useExpenseStore from "../stores/useExpenseStore";
 
 const RecentGoals = () => {
-  const { goals } = useGoalsStore();
+  const { goals, updadteGoals } = useGoalsStore();
+  const addTransaction = useExpenseStore((state) => state.addTransaction);
   const recentGoals = goals.slice(0, 5);
-  // const { showAlert } = useAlert();
+  const { showAlert, showConfirm } = useAlert();
 
-  function handleOnClick() {
-   
+  async function handleClickFinish(amount, percentage, id, status) {
+    if (status === false) {
+      showAlert({
+        title: "Meta Completa",
+        text: "Ya la meta ha sido completada, cree una nueva meta",
+        icon: "error",
+      });
+
+      return;
+    }
+
+    try {
+      const auth = await showConfirm({
+        title: "Uso de Meta",
+        text: "¿Está seguro de usar esta meta?, Esta acción es irreversible.",
+      });
+
+      if (auth.isConfirmed) {
+        await addTransaction({
+          type: "expense",
+          category: "other-expense",
+          description: "Uso de ahorros",
+          amount: parseFloat(amount),
+          idGoal: "",
+          date: new Date().toISOString().split("T")[0],
+        });
+
+        await updadteGoals(id, {
+          amountGoal: 0,
+          status: false,
+        });
+
+        showAlert({
+          title: "Nueva Transacción",
+          text: `Felicidades, su meta fue usada con exito`,
+        });
+      }
+    } catch (error) {
+      showAlert({
+        title: "Error",
+        text: `No se pudo procesar el gasto, ${error}`,
+        icon: "error",
+      });
+    }
   }
 
   return (
@@ -30,6 +73,7 @@ const RecentGoals = () => {
           recentGoals.map((goal, i) => {
             const amountGoal = goal.amountGoal;
             const percentage = (amountGoal / goal.amount) * 100;
+            console.log(goal.date);
 
             // seeAlert(
             //   `Meta Superada`,
@@ -42,7 +86,6 @@ const RecentGoals = () => {
               <Card
                 key={i}
                 className={`p-4 bg-slate-200 rounded-2xl flex flex-col gap-2`}
-                onClick={handleOnClick}
               >
                 {/* Nombre de la meta */}
                 <section className="flex items-center space-x-2">
@@ -70,21 +113,37 @@ const RecentGoals = () => {
                 </section>
 
                 {/* fecha y si esta activa o no */}
-                <section className="flex flex-wrap gap-2 mt-4">
-                  <Circle variant="blue">{formatDate(goal.date)}</Circle>
-                  <Circle variant={`${goal.status ? "green" : "red"}`}>
-                    {goal.status ? "Activa" : "Desactivada"}
-                  </Circle>
-                  <Circle
-                    variant={`${
-                      goal.amount === goal.amountGoal ? "green" : "grey"
-                    }`}
-                  >
-                    {goal.status ? "En Proceso" : "Completada"}
-                  </Circle>
-                  <Button className="p-2 flex items-center justify-center rounded-2xl border-2 bg-green-200">
-                    <FcCheckmark />
-                  </Button>
+                <section className="flex justify-between gap-4 mt-4">
+                  <div className="flex flex-wrap gap-2">
+                    <Circle variant="blue">{formatDate(goal.date)}</Circle>
+                    <Circle variant={`${goal.status ? "green" : "red"}`}>
+                      {goal.status ? "Activa" : "Desactivada"}
+                    </Circle>
+                    <Circle
+                      variant={`${
+                        goal.amount === goal.amountGoal ? "green" : "grey"
+                      }`}
+                    >
+                      {goal.status ? "En Proceso" : "Completada"}
+                    </Circle>
+                  </div>
+                  <div>
+                    <Button
+                      className="p-2 flex items-center justify-center rounded-2xl border-2 bg-green-200"
+                      variant="new"
+                      disabled={percentage !== 100 ? true : false}
+                      onClick={() => {
+                        handleClickFinish(
+                          goal.amount,
+                          percentage,
+                          goal.id,
+                          goal.status
+                        );
+                      }}
+                    >
+                      <BiCheck className="text-xl" />
+                    </Button>
+                  </div>
                 </section>
               </Card>
             );

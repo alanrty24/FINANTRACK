@@ -13,15 +13,16 @@ import { FaSave } from "react-icons/fa";
 import { HiArrowLeft } from "react-icons/hi";
 import useGoalsStore from "../stores/useGoalsStore";
 import { useEffect } from "react";
+import { useAlert } from "../../hook/useAlert";
 
 const TransactionsForm = ({ onClose }) => {
   const { categories } = useCategoryStore();
+  const { showAlert, showConfirm } = useAlert();
   const { goals, updadteGoals } = useGoalsStore();
   const goalsActives = goals.filter((goal) => goal.status === true);
   const [goalSelect, setGoalSelect] = useState({});
   const [percentage, setPercentage] = useState(0);
   const [totalGoal, setTotalGoal] = useState(0);
-  const [statusGoal, setStatusGoal] = useState(true);
   const [data, setData] = useState({
     type: "income",
     category: "",
@@ -64,51 +65,61 @@ const TransactionsForm = ({ onClose }) => {
 
     if (data.category === "savings") {
       if (percentage > 1) {
-        alert(
-          "El monto a utilizar es mayor aceptado para la meta, intente con otra meta o reduzca el monto"
-        );
+        showAlert({
+          title: "Meta Incompleta",
+          text: "El monto a utilizar es mayor aceptado para la meta, intente con otra meta o reduzca el monto",
+          icon: "error",
+        });
         setTotalGoal(0);
         return;
-      } 
+      }
     }
 
-    await addTransaction({
-      ...data,
-      amount: parseFloat(data.amount),
+    const auth = await showConfirm({
+      title: "Nueva Transacción",
+      text: "¿Está seguro?, Esta acción es irreversible.",
     });
 
-    await updadteGoals(data.idGoal, {
-      amountGoal: parseFloat(data.amount),
-      status: statusGoal,
-    });
+    if (auth.isConfirmed) {      
+      await addTransaction({
+        ...data,
+        amount: parseFloat(data.amount),
+      });
+  
+      await updadteGoals(data.idGoal, {
+        amountGoal: parseFloat(data.amount),
+        status: true
+      });
+      
+      showAlert({
+        title: "Nueva Transacción",
+        text: `Se ha realizado su operación exitosamente`,
+      });
 
-    reset();
-    onClose();
+      reset();
+      onClose();
+    }
   };
 
   const type = watch("type");
 
-  // function handleOnchageGoal(e) {
-  //   const findGoal = goals.find((goal) => goal.id === data.idGoal);
-  //   setData(e.target.value);
-  //   setGoalSelect(findGoal);
-  // }
-
   useEffect(() => {
     if (data.category === "savings") {
-      const findGoal = goals.find((goal) => goal.id === data.idGoal);
-      const amountTotalGoal = findGoal.amountGoal + parseFloat(data.amount);
-      const percentage = amountTotalGoal / findGoal.amount
+      console.log(data.amount + " " + data.idGoal);
 
-      if (percentage === 1) {
-        setStatusGoal((prev) => !prev)
+      if (data.amount === 0 || data.idGoal === "") {
+        return;
+      } else {
+        const findGoal = goals.find((goal) => goal.id === data.idGoal);
+        const amountTotalGoal = findGoal.amountGoal + parseFloat(data.amount);
+        const percentage = amountTotalGoal / findGoal.amount;
+
+        setTotalGoal(amountTotalGoal);
+        setGoalSelect(findGoal);
+        setPercentage(percentage);
       }
-
-      setTotalGoal(amountTotalGoal);
-      setGoalSelect(findGoal);
-      setPercentage(percentage)
     }
-  }, [data.idGoal]);
+  }, [data.idGoal, data.amount]);
 
   return (
     <Card className={`flex flex-col gap-4 md:px-8`}>

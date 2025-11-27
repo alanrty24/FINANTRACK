@@ -13,7 +13,7 @@ const GoalsForms = ({ onClose }) => {
   const [data, setData] = useState({
     name: "",
     amount: "",
-    date: new Date().toISOString().split("T")[0],
+    date: new Date().toLocaleDateString(),
     status: true,
   });
   const addGoals = useGoalsStore((state) => state.addGoals);
@@ -24,7 +24,7 @@ const GoalsForms = ({ onClose }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      date: new Date().toISOString().split("T")[0],
+      date: new Date().toLocaleDateString(),
     },
   });
 
