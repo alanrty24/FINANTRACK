@@ -11,7 +11,6 @@ export const formatAmount = (amount) => {
 
 export const formatDate = (date) => {
     const newDate = new Date(date); 
-    console.log(newDate);
     
     return new Intl.DateTimeFormat("es-VE",{
         day:"2-digit",
@@ -33,9 +32,9 @@ export const csvFormat = (transactions) => {
         ].join(","))
     ].join("\n")
 
-    const blob = Blob([csvBody],{type: "text/csv;charset = utf-8"});
+    const blob = new Blob([csvBody],{type: "text/csv;charset=utf-8"});
     const link = document.createElement("a"); 
     link.href = URL.createObjectURL(blob); 
-    link.download = `Transactions ${new Date().toISOString().split("T")[0]}`
-    link.click
+    link.download = `Transactions_${new Date().toISOString().split("T")[0]}.csv`;
+    link.click();
 }

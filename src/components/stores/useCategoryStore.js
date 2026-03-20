@@ -29,9 +29,7 @@ const useCategoryStore = create(
       },
       deleteCategory: (id) => {
         set((state) => ({
-          categories: {
-            income: state.categories.income.filter((cat) => cat.id !== id),
-          },
+          categories: state.categories.filter((cat) => cat.id !== id),
         }));
       },
     }),

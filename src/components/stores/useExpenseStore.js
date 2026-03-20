@@ -42,21 +42,20 @@ export default  useExpenseStore;
 
 export function useTotalbalance() {
   const { transactions } = useExpenseStore();
-  const total =  transactions.reduce((acum, transaction) => {
-    acum[transaction.type] = (acum[transaction.type] + transaction.amount) || 0; 
-    return acum; 
-  }, {income: 0 , expense: 0});
+  const total = transactions.reduce((acum, transaction) => {
+    acum[transaction.type] = (acum[transaction.type] ?? 0) + parseFloat(transaction.amount ?? 0);
+    return acum;
+  }, { income: 0, expense: 0 });
 
-  return total.income - total.expense
+  return total.income - total.expense;
 }
 
 export function useBalance() {
   const { transactions } = useExpenseStore();
   const balance = transactions.reduce((acum, transaction) => {
-    acum[transaction.type] = (acum[transaction.type] + transaction.amount) || 0; 
-    console.log(acum);
-    return acum; 
-  }, {income: 0 , expense: 0})
+    acum[transaction.type] = (acum[transaction.type] ?? 0) + parseFloat(transaction.amount ?? 0);
+    return acum;
+  }, { income: 0, expense: 0 });
 
   return balance;
 }

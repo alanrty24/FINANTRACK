@@ -72,8 +72,7 @@ const RecentGoals = () => {
         ) : (
           recentGoals.map((goal, i) => {
             const amountGoal = goal.amountGoal;
-            const percentage = (amountGoal / goal.amount) * 100;
-            console.log(goal.date);
+            const percentage = Math.round((amountGoal / goal.amount) * 100);
 
             // seeAlert(
             //   `Meta Superada`,

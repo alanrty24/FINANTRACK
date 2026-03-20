@@ -3,6 +3,7 @@ import { useBalance, useTotalbalance } from '../stores/useExpenseStore'
 import Card from '../ui/Card'
 import { AiOutlineDollarCircle } from 'react-icons/ai';
 import { MdTrendingDown, MdTrendingUp } from 'react-icons/md';
+import { formatAmount } from '../lib/utils';
 
 const BalanceCard = () => {
     const total = useTotalbalance(); 
@@ -32,7 +33,7 @@ const BalanceCard = () => {
               <h3 className='font-mono font-bold mt-4 text-slate-700'>{bal.name}</h3>
 
               {/* Monto */}
-              <span className={`${bal.text} font-bold`}>Bs. {bal.monto}</span>
+              <span className={`${bal.text} font-bold`}>{formatAmount(bal.monto)}</span>
             </Card>
           )
         })
