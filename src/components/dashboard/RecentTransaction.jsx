@@ -35,12 +35,12 @@ const RecentTransaction = () => {
       <section>
         {getTransactions.length > 0 ? (
           <article className="flex flex-col gap-4">
-            {getTransactions.map((transaction, i) => {
+            {getTransactions.map((transaction) => {
               const icono = getIcono(transaction.category, transaction.type);
 
               return (
                 <div
-                  key={i}
+                  key={transaction.id}
                   className="p-4 flex items-center justify-around border-2 border-white gap-4 rounded-2xl  bg-slate-200 lg:gap-6"
                 >
                   {/* Icono */}

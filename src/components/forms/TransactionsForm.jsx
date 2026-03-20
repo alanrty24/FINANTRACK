@@ -20,9 +20,7 @@ const TransactionsForm = ({ onClose }) => {
   const { showAlert, showConfirm } = useAlert();
   const { goals, updadteGoals } = useGoalsStore();
   const goalsActives = goals.filter((goal) => goal.status === true);
-  const [goalSelect, setGoalSelect] = useState({});
   const [percentage, setPercentage] = useState(0);
-  const [totalGoal, setTotalGoal] = useState(0);
   const [data, setData] = useState({
     type: "income",
     category: "",
@@ -60,9 +58,6 @@ const TransactionsForm = ({ onClose }) => {
     ],
   };
   const handleSaveTransaction = async (data) => {
-    console.log(totalGoal);
-    console.log(totalGoal / goalSelect.amount);
-
     if (data.category === "savings") {
       if (percentage > 1) {
         showAlert({
@@ -70,7 +65,7 @@ const TransactionsForm = ({ onClose }) => {
           text: "El monto a utilizar es mayor aceptado para la meta, intente con otra meta o reduzca el monto",
           icon: "error",
         });
-        setTotalGoal(0);
+        setPercentage(0);
         return;
       }
     }
@@ -86,10 +81,12 @@ const TransactionsForm = ({ onClose }) => {
         amount: parseFloat(data.amount),
       });
   
-      await updadteGoals(data.idGoal, {
-        amountGoal: parseFloat(data.amount),
-        status: true
-      });
+      if (data.category === "savings" && data.idGoal) {
+        await updadteGoals(data.idGoal, {
+          amountGoal: parseFloat(data.amount),
+          status: true
+        });
+      }
       
       showAlert({
         title: "Nueva Transacción",
@@ -105,21 +102,17 @@ const TransactionsForm = ({ onClose }) => {
 
   useEffect(() => {
     if (data.category === "savings") {
-      console.log(data.amount + " " + data.idGoal);
-
-      if (data.amount === 0 || data.idGoal === "") {
+      if (!data.amount || data.idGoal === "") {
+        setPercentage(0);
         return;
-      } else {
-        const findGoal = goals.find((goal) => goal.id === data.idGoal);
+      }
+      const findGoal = goals.find((goal) => goal.id === data.idGoal);
+      if (findGoal) {
         const amountTotalGoal = findGoal.amountGoal + parseFloat(data.amount);
-        const percentage = amountTotalGoal / findGoal.amount;
-
-        setTotalGoal(amountTotalGoal);
-        setGoalSelect(findGoal);
-        setPercentage(percentage);
+        setPercentage(amountTotalGoal / findGoal.amount);
       }
     }
-  }, [data.idGoal, data.amount]);
+  }, [data.idGoal, data.amount, data.category, goals]);
 
   return (
     <Card className={`flex flex-col gap-4 md:px-8`}>

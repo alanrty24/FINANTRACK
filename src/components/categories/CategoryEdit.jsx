@@ -148,7 +148,6 @@ const CategoryEdit = () => {
               ...data,
               status: e.target.checked,
             });
-            console.log(e.target.checked);
           }}
         ></Input>
         <div className="flex justify-center">

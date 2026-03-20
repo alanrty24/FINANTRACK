@@ -10,10 +10,11 @@ import { FaSave } from "react-icons/fa";
 import { HiArrowLeft } from "react-icons/hi";
 
 const GoalsForms = ({ onClose }) => {
+  const today = new Date().toISOString().split("T")[0];
   const [data, setData] = useState({
     name: "",
     amount: "",
-    date: new Date().toLocaleDateString(),
+    date: today,
     status: true,
   });
   const addGoals = useGoalsStore((state) => state.addGoals);
@@ -24,7 +25,7 @@ const GoalsForms = ({ onClose }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      date: new Date().toLocaleDateString(),
+      date: today,
     },
   });
 
